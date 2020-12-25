@@ -5,26 +5,58 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>homework-6</homework-6></title>
  </head>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" /> 
+ 
  <link rel="stylesheet" href="style.css">
- <link rel="stylesheet" href= "css/fontawesome.css">
- <link rel="stylesheet" href="/css/all.min.css">
- <script defer src="script.js"></script>
+ <link rel="stylesheet" href="./css/all.css">
+ <link rel="stylesheet" href="./css/all.min.css">
+  
  <body>
-     <div class="header">
+     <header class="header">
          <h1>Weather Dashboard</h1>
+     </header>
+<div class="jumbo-torn mt-0">
+        <div class="row" id="row">
+        
+            <div class="col col-3 first-col mt-0">
+                    <div><h3>Search for City:</h3>
+                    </div>
+                        <form id = "city-form" class="form-inline justify-content-center md-form form-sm">
+                            <input id ='input' class=" city form-control-sm" type="text" placeholder="Search" name="city"aria-label="Search"> 
+                            <i type="submit" class="fas fa-search  btn button-primary"  id ="search-button" aria-hidden="true"></i>
+                            
+                        </form>
+                        <div class="container">
+                            <ul id = city-list>
+                        
+                            </ul>
+                        </div>
+                        
+            </div>
+                
+                
+            <div class="col col-9 second-col">
+                    <div class=" container-fluid bg-white upper-div" id="upperDiv">
+                        <h3 id ="heading3"></h3>
+                        <div id="icon"><img id="wicon" src="" alt="Weather icon"></div>
+                        <h5 id="description"></h5>
+                        <h5 id="one"></h5> 
+                        <h5 id="two"></h5>
+                        <h5 id="three"></h5>
+                        <h5 id="four"></h5>
+                    </div>
+                    <div class="lower-div" id="lowerDiv">
+                        <h2> 5-Day Forecast:</h3>
+                        <div id = "card-div" class="card-div">
+                            
+                        </div>
+                    </div>
+            </div>
      </div>
-     <div class="row">
-         <div class="col col-4">
-             <h3> Search for a City</h3>
-             <input type="text"><i class="fas fa-search"></i>
-           
-         </div>
-         <div class="col col-7">ATlanta</div>
-     </div>
-   
     
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script  src="script.js"></script>
+   
  </body>
  </html>
