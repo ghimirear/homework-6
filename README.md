@@ -5,5 +5,5 @@ For this I made two API call one with the city name that will grab the name of c
 when the first call grab those values it will feed the second function which will run on the value of latitude and longitude.
 The data which will come from tht second call will be displayed in the screen.
 5 days forecast, average temperature and humidity and finally the most important value is UV index since fist call doesnt have that values.  
-[link-to-deployed-page]()
+[link-to-deployed-page](https://ghimirear.github.io/homework-6/)
 ![screenshoot](/images/weatherdashboard.JPG)
