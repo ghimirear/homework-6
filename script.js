@@ -1,5 +1,6 @@
 // getting html elments 
 var cityForm = document.querySelector('#city-form')
+//just to make sure files are connected.
 console.log("app connecting");
 var searchButton = document.getElementById('search-button');
 var input = document.querySelector('#input');
@@ -13,28 +14,37 @@ var card = document.querySelector('#card-div');
 var description = document.querySelector('#description');
 var upperDiv = document.querySelector('#upperDiv');
 var errorm = document.querySelector('#error');
-//console.log(searchCity);
+iconPlace = document.querySelector("#icon");
+// function init to grab stored city list.
 init();
+var storedlist =JSON.parse(localStorage.getItem('lists'));
 function init(){
   var storedlist =JSON.parse(localStorage.getItem('lists'));
   console.log(storedlist);
   if (storedlist !== null) {
+    //if stored vaule is not equal to null then 
       for (var i = 0; i < storedlist.length; i++) {
         var li = document.createElement('li');
         li.setAttribute["data-index", i]
         li.textContent= storedlist[i];
         cityList.appendChild(li);
-        cityList.lastChild.classList.add('sucess');
         values = cityList.lastChild.textContent;
         console.log(values);
         input.value = values;
         console.log(input.value);
-        
-      }
+      }  
   }
+  else if (storedlist === null){
+    return;
+  };
 }
+
+//whenever document ready triggering the search button with the value of last city search so that it always display last city results.
 $(document).ready(function () {
-  $("#search-button").trigger('click');
+  $('.search-button').trigger('click')
+  cityList.removeChild(cityList.lastElementChild);
+  input.value = "";
+
 });
 //variable lists to store the city name.
 var lists =[];
@@ -43,8 +53,10 @@ var lists =[];
    localStorage.setItem("lists", JSON.stringify(lists));
  }
 //Adding event listener to the search button
+
 searchButton.addEventListener('click', function(e) {
       e.preventDefault();
+      $(".icon").empty();
       //getting value from input.
       var inputval = input.value.trim();
       console.log(inputval);
@@ -56,13 +68,14 @@ searchButton.addEventListener('click', function(e) {
    .then(response => response.json())
    .then(data =>{ console.log(data);
         //creating li elemnt on the basis of response data name.
-         var li = document.createElement('li');
-         var cityName = data.name;
-         li.textContent = cityName;
+        var cityName = data.name;
           if (cityName !== undefined) {
+            var li = document.createElement('li');
+            li.textContent = cityName;
           lists.push(cityName);
+          cityList.appendChild(li);
          } 
-         cityList.appendChild(li);
+         
          errorm.textContent = "";
          //clearing the input to prevent multiple request.
          input.value = "";
@@ -96,8 +109,10 @@ searchButton.addEventListener('click', function(e) {
       //current weather icon
       var iconCode = data['weather'][0]['icon'];
       //constructing icon url on the basis of code 
+      var img = document.createElement('img');
       var iconurl = "http://openweathermap.org/img/w/" + iconCode + ".png";
-      $('#wicon').attr('src', iconurl);
+      img.src= iconurl;
+      iconPlace.append(img);
       description.innerHTML = data['weather']['0']['description'];
      //envoking the searchlanlon.    
     searchlanlon();
@@ -118,16 +133,23 @@ searchButton.addEventListener('click', function(e) {
         //for loop to grab the five days data.
         $(".card-div").empty();
         for (var i = 1; i <= 5; i++) {
+          //starting from no.1 position because the index 0 is current day.
           var dDate = timeConverter(data['daily'][i]['dt']);
           var dTemp = "Temperature: " + Math.round(data['daily'][i]['temp']['max']) + "°F";
           var dHumidity = "Humidity: " + data['daily'][i]['humidity'] + "%";
           var dIconCode = data['daily'][i]['weather']['0']['icon'];
+          // creating icon url on the basis of icon code and openweather website.
            dIconUrl = "http://openweathermap.org/img/w/" + dIconCode + ".png";
+           //creating image element
            var img = document.createElement('img'); 
+           //assigining source to that image.
             img.src = dIconUrl;
+          // creating div element to hold all the data that come from the api call.
           var div = document.createElement('div');
          var linebreak = document.createElement('br');
+         // assigining the class of card area to that div
           div.classList.add("card-area");
+          //appending all the element to that created div element.
           div.append(dDate);
           div.appendChild(linebreak);
           div.append(img );
@@ -135,6 +157,7 @@ searchButton.addEventListener('click', function(e) {
           div.append(dTemp );
           div.appendChild(linebreak);
           div.append(dHumidity);
+          //appending div to the DOM as a child.
           card.appendChild(div);      
         } 
       });
@@ -144,6 +167,8 @@ searchButton.addEventListener('click', function(e) {
   }
 });
 
+
+//time converter function which take the data from the cpi call and convert to normal.
 function timeConverter(UNIX_timestamp){
       var a = new Date(UNIX_timestamp * 1000);
       var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -154,6 +179,19 @@ function timeConverter(UNIX_timestamp){
       var time = date + ' ' + month + ' ' + year;
       return time;
 }
+//consoling timeconverter just to show it is working.
+
     console.log(timeConverter(1608829200));
 
-
+// evend delegation for the list items
+$("#city-list").on("click", "li", function () {
+  console.log(this);
+  var thisvalue = this.textContent;
+  console.log(thisvalue);
+  //on the basis of click assigning that text content value to the input value and triggering the search button.
+  input.value = thisvalue;
+  $(".search-button").trigger('click')
+  //whenever click ic detected on list items that gonna remove that same child and create new child and append to the buttom
+  cityList.removeChild(this);
+  //this.classList.add("search-button");
+});
