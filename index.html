@@ -18,16 +18,18 @@
 <div class="jumbo-torn mt-0">
         <div class="row" id="row">
         
-            <div class="col col-3 first-col mt-0">
+            <div class="col col-2 first-col mt-0">
                     <div><h3>Search for City:</h3>
                     </div>
+                    <div class="form">
                         <form id = "city-form" class="form-inline justify-content-center md-form form-sm">
                             <input id ='input' class=" city form-control-sm" type="text" placeholder="Search" name="city"aria-label="Search"> 
-                            <i type="submit" class="fas fa-search  btn button-primary"  id ="search-button" aria-hidden="true"></i>
+                            <i type="submit" class="fas fa-search  btn button-primary search-button"  id ="search-button" aria-hidden="true"></i>
                             
                         </form>
+                    </div>
                         <div class="container">
-                            <ul id = city-list>
+                            <ul id = "city-list" class="city-list">
                         
                             </ul>
                         </div>
@@ -37,14 +39,17 @@
                 
             <div class="col col-9 second-col">
                     <div class=" container-fluid bg-white upper-div" id="upperDiv">
-                        <h3 id ="heading3"></h3>
-                        <div id="icon"><img id="wicon" src="" alt="Weather icon"></div>
-                        <h5 id="description"></h5>
-                        <h5 id="one"></h5> 
-                        <h5 id="two"></h5>
-                        <h5 id="three"></h5>
-                        <h5 id="four"></h5>
-                    </div>
+                        <h1 class="error" id="error"></h1>
+                        <div class="upperdiv" id = "upperdiv">
+                            <h3 id ="heading3"></h3>
+                            <div id="icon"><img id="wicon" src="" alt="Weather icon"></div>
+                            <h5 id="description"></h5>
+                            <h5 id="one"></h5> 
+                            <h5 id="two"></h5>
+                            <h5 id="three"></h5>
+                            <h5 id="four"></h5>
+                        </div>
+                </div>
                     <div class="lower-div" id="lowerDiv">
                         <h2> 5-Day Forecast:</h3>
                         <div id = "card-div" class="card-div">

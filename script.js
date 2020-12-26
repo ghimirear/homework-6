@@ -11,12 +11,37 @@ var three = document.querySelector('#three');
 var four = document.querySelector('#four');
 var card = document.querySelector('#card-div');
 var description = document.querySelector('#description');
+var upperDiv = document.querySelector('#upperDiv');
+var errorm = document.querySelector('#error');
 //console.log(searchCity);
-
+init();
+function init(){
+  var storedlist =JSON.parse(localStorage.getItem('lists'));
+  console.log(storedlist);
+  if (storedlist !== null) {
+      for (var i = 0; i < storedlist.length; i++) {
+        var li = document.createElement('li');
+        li.setAttribute["data-index", i]
+        li.textContent= storedlist[i];
+        cityList.appendChild(li);
+        cityList.lastChild.classList.add('sucess');
+        values = cityList.lastChild.textContent;
+        console.log(values);
+        input.value = values;
+        console.log(input.value);
+        
+      }
+  }
+}
+$(document).ready(function () {
+  $("#search-button").trigger('click');
+});
+//variable lists to store the city name.
 var lists =[];
-// function setitem(){
-//   localStorage.setItem("lists", JSON.stringify(lists));
-// }
+//function to store city name in local storage
+ function setitem(){
+   localStorage.setItem("lists", JSON.stringify(lists));
+ }
 //Adding event listener to the search button
 searchButton.addEventListener('click', function(e) {
       e.preventDefault();
@@ -32,13 +57,24 @@ searchButton.addEventListener('click', function(e) {
    .then(data =>{ console.log(data);
         //creating li elemnt on the basis of response data name.
          var li = document.createElement('li');
-         li.textContent = data.name;
-         //li.setAttribute("data-index", i)
+         var cityName = data.name;
+         li.textContent = cityName;
+          if (cityName !== undefined) {
+          lists.push(cityName);
+         } 
          cityList.appendChild(li);
+         errorm.textContent = "";
          //clearing the input to prevent multiple request.
          input.value = "";
-         lists.push(li);
+         console.log(cityName);
+         setitem();
          console.log(data);
+         //if result came undefined if any error occured.
+         while (cityName === undefined) {
+           $(".card-div").empty();
+          errorm.textContent= "please enter a valid city name...";
+          return;
+        }
          //grabbing latitude and longitude and passing that value to searchlanlon function.
       var  lat= data['coord']['lat'];
       // console.log('latitude ' + lat);
@@ -63,7 +99,7 @@ searchButton.addEventListener('click', function(e) {
       var iconurl = "http://openweathermap.org/img/w/" + iconCode + ".png";
       $('#wicon').attr('src', iconurl);
       description.innerHTML = data['weather']['0']['description'];
-
+     //envoking the searchlanlon.    
     searchlanlon();
     //since first api didn't cover all the data required so there is anoter api call on the basis of latitude and longitude 
     function searchlanlon(){
@@ -78,12 +114,10 @@ searchButton.addEventListener('click', function(e) {
         if (parseFloat(uvIndex) > 4) {
           four.classList.add('red');
         }
+        //emptying the card-div to append new element.
         //for loop to grab the five days data.
         $(".card-div").empty();
         for (var i = 1; i <= 5; i++) {
-          // Convert “dt:”
-          //card.remove(div);
-          
           var dDate = timeConverter(data['daily'][i]['dt']);
           var dTemp = "Temperature: " + Math.round(data['daily'][i]['temp']['max']) + "°F";
           var dHumidity = "Humidity: " + data['daily'][i]['humidity'] + "%";
@@ -102,17 +136,12 @@ searchButton.addEventListener('click', function(e) {
           div.appendChild(linebreak);
           div.append(dHumidity);
           card.appendChild(div);      
-        }
-        
+        } 
       });
-    }
-    
-    
-    
+    }  
    });
+  
   }
-            
-//var lists = JSON.parse(localStorage.getItem('lists'))
 });
 
 function timeConverter(UNIX_timestamp){
@@ -124,14 +153,7 @@ function timeConverter(UNIX_timestamp){
       
       var time = date + ' ' + month + ' ' + year;
       return time;
-    }
+}
     console.log(timeConverter(1608829200));
 
 
-
-
-
-
-
-// var body = document.getElementById('body');
-// //apikey = 15a98bf4b8e4398115c70b833e8de635
