@@ -41,9 +41,12 @@ function init(){
 
 //whenever document ready triggering the search button with the value of last city search so that it always display last city results.
 $(document).ready(function () {
-  $('.search-button').trigger('click')
-  cityList.removeChild(cityList.lastElementChild);
-  input.value = "";
+  if (storedlist !== null) {
+    $('.search-button').trigger('click')
+    cityList.removeChild(cityList.lastElementChild);
+    input.value = "";  
+  }
+  
 
 });
 //variable lists to store the city name.
@@ -128,6 +131,9 @@ searchButton.addEventListener('click', function(e) {
         // if uv idex is to high giving the background color to emphasize 
         if (parseFloat(uvIndex) > 4) {
           four.classList.add('red');
+        }
+        else{
+          four.classList.remove("red");
         }
         //emptying the card-div to append new element.
         //for loop to grab the five days data.
