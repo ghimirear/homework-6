@@ -1,4 +1,4 @@
-# homework-6
+# weather-dashboard
 ## about this project:
 #### This project was fun. Thia project actually made me think that I am actually coding because, I am using the weather data and making the project that actually seen or use in uor daily life.
 For this I made two API call one with the city name that will grab the name of city, latitude and longitude. I use this method because entering the city name will be much easier nad convenient instead of latitude nad longitude.
