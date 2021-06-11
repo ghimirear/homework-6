@@ -13,33 +13,30 @@
   
  <body>
      <header class="header">
-         <h1>Weather Dashboard</h1>
+         <h3>Weather Dashboard</h3>
      </header>
-<div class="jumbo-torn mt-0">
-        <div class="row" id="row">
-        
-            <div class="col col-3 first-col mt-0">
-                    <div><h3>Search for City:</h3>
-                    </div>
-                    <div class="form">
-                        <form id = "city-form" class="form-inline justify-content-center md-form form-sm">
-                            <input id ='input' class=" city form-control-sm" type="text" placeholder="Search" name="city"aria-label="Search"> 
-                            <i type="submit" class="fas fa-search  btn button-primary search-button"  id ="search-button" aria-hidden="true"></i>
-                            
-                        </form>
-                    </div>
-                        <div class="container">
-                            <ul id = "city-list" class="city-list">
+<div class="row m-0 p-0" style="display: flex; flex-direction: row; flex-wrap: wrap; ">
+    <div class=" col col-xs-11 sm-col-11 col-md-6 col-lg-6 col-xl-4 list-col" style="
+        background-color:antiquewhite; color: rgb(2, 1, 1);
+        height:fit-content;
+        width: auto;
+        ">
+        <div class="container-fluid">
+            <form id = "city-form" class="form-inline justify-content-center md-form form-md mt-2">
+                <input id ='input' class=" city form-control-sm" type="text" placeholder="Search" name="city"aria-label="Search"> 
+                <i type="submit" class="fas fa-search  btn button-primary search-button fa-2x"  id ="search-button" aria-hidden="true"></i>
+                
+            </form>
+            <ul id = "city-list" class="city-list">
                         
-                            </ul>
-                        </div>
-                        
+            </ul>
             </div>
-                
-                
-            <div class="col col-8 second-col">
-                    <div class=" container-fluid bg-white upper-div" id="upperDiv">
-                        <h1 class="error" id="error"></h1>
+    </div>
+  
+
+        <div class=" col-xs-11 sm-col-11 col-md-6 col-lg-6 col-xl-8 bg-aqua first-col" style="background-color: antiquewhite; color: rgb(73, 54, 54); width: 100vw2;">
+            <div class="container-fluid " style="background-color: antiquewhite;">
+                <h1 class="error" id="error"></h1>
                         <div class=" container-fluid upperdiv" id = "upperdiv">
                             <h3 id ="heading3"></h3>
                             <div id="icon" class="icon"></div>
@@ -49,18 +46,23 @@
                             <h5 id="three"></h5>
                             <h3 id="four"></h3>
                         </div>
-                </div>
-                    <div class="lower-div" id="lowerDiv">
-                        <h2> 5-Day Forecast:</h3>
-                        <div id = "card-div" class="card-div">
+            </div>
+        
+                <div class="" style="background-color: antiquewhite;">
+                    <h2> 5-Day Forecast:</h3>
+                        <hr>
+                        <div id = "card-div card-container " class="card-div">
                             
                         </div>
-                    </div>
-            </div>
-     </div>
+                </div>
+               
+
+</div>
+
     
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script  src="script.js"></script>
    
  </body>
