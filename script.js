@@ -16,7 +16,7 @@ var upperDiv = document.querySelector('#upperDiv');
 var errorm = document.querySelector('#error');
 iconPlace = document.querySelector("#icon");
 // function init to grab stored city list.
-init();
+
 var storedlist =JSON.parse(localStorage.getItem('lists'));
 function init(){
   var storedlist =JSON.parse(localStorage.getItem('lists'));
@@ -25,7 +25,7 @@ function init(){
     //if stored vaule is not equal to null then 
       for (var i = 0; i < storedlist.length; i++) {
         var li = document.createElement('li');
-        li.setAttribute["data-index", i]
+        li.setAttribute["data-index", storedlist[i]]
         li.textContent= storedlist[i];
         cityList.appendChild(li);
         values = cityList.lastChild.textContent;
@@ -38,13 +38,15 @@ function init(){
     return;
   };
 }
-
+init();
 //whenever document ready triggering the search button with the value of last city search so that it always display last city results.
 $(document).ready(function () {
+  var storedlist =JSON.parse(localStorage.getItem('lists'));
   if (storedlist !== null) {
-   var svalue = cityList.lastChild.getAttribute('data-index');
+   var svalue = cityList.lastChild.textContent;
    getData(svalue);
-   cityList.removeChild(cityList.children.textContent == svalue);
+   console.log(svalue);
+    cityList.removeChild(cityList.lastChild);
   }
   
 
@@ -92,6 +94,12 @@ function getData(inputval){
      //if result came undefined if any error occured.
      while (data.name === undefined) {
        $(".card-div").empty();
+       heading3.textContent="";
+       one.innerHTML= "";
+       two.innerHTML ="";
+       three.innerHTML= "";
+       description.innerHTML="";
+       four.innerHTML="";
       errorm.textContent= "please enter a valid city name...";
       return;
     }
